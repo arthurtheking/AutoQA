@@ -1,0 +1,1 @@
+Here are placed all project related to AUTOMATION_QA practice
