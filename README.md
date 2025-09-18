@@ -1,0 +1,1 @@
+Repository for all the projects I'll try to automate.
