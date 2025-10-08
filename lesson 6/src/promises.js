@@ -1,80 +1,44 @@
-// function fetchUser() {
-//     return fetch('https://jsonplaceholder.typicode.com/todos/1')
-//       .then(response => response.json())  
-// }
+// Підготувати файл promises.js, у якому написати функцію, 
+// що відсилатиме за допомогою функції fetch запит на ресурс, 
+// який повертає JSON. Через ланцюжок then() обробити цей запит 
+// і перевикористати цей JSON у іншій функції.
 
-// function receiveUserNotification(user) {
-//     console.log(`User Received!`)
-//     return user
-// }
-
-// receiveUserNotification(
-//     fetchUser()
-//         .then((result) => {
-//             console.log('Adding new field to the User object - "modified: true"')
-//             result.modified = true;
-//             console.log(result)
-//         })
-//         .catch((error) => {
-//             console.log(error)
-//         })
-//         .finally(() => {
-//             console.log('Finished')
-//         })
-//     )
+// "https://jsonplaceholder.typicode.com/todos/1"
 
 
 
+function countUsers(users) {
 
+    if(typeof(users) === "object" && !Array.isArray(users)) {
+        console.log("Number of users:", 1)
+    }
+}
 
+function sendRequest(url) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function fetchUser() {
-    return fetch('https://jsonplaceholder.typicode.com/todos/1')
+    console.log("\n⚠️ Sending request to the database...")
+    return fetch(url)
         .then(response => response.json())
 }
 
-
-function displayUserInfo() {
-    console.log("Receiving new user...")
-
-    return new Promise((resolve, reject) => {
-        const success = Math.random() > 0.3
-        
-        if(!success) {
-            return reject("Critical Error. User was not received.")
-        }
-            console.log(`User found! Displaying...`)
-            resolve(fetchUser())
-    })
+function getRandomBool() {
+    return Math.random() > 0.5;
 }
 
 
-displayUserInfo()
-    .then((result) => {
-        return result
-    })
-    .then((user) => {
-        console.log("👤 User data received from API:");
-        console.log(user);
+sendRequest("https://jsonplaceholder.typicode.com/todos/1")
+    .then((response) => {
+
+        if(response && getRandomBool() === true) {
+            console.log('\n✅ Users received')
+                countUsers(response);
+        } else {
+            throw new Error('NO USERS RECEIVED')
+        }
     })
     .catch((error) => {
-        console.log(error)
+        console.log(`\n❌ ${error.name}: ${error.message}`)
     })
     .finally(() => {
-        console.log("Test finished!")
+        console.log(`\n<---- Test Finished ---->`);
     })
