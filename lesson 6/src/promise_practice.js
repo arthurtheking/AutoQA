@@ -64,3 +64,36 @@
 
 
 
+const servers = [
+  "https://jsonplaceholder.typicode.com/todos/1",
+  "https://jsonplaceholder.typicode.com/todos/2",
+  "https://wrong-url-test123.com"
+];
+
+
+function checkServer(url) {
+        return fetch(url)
+
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Shit happens')
+                }
+
+                return response;
+            })
+
+            .catch((error) => {
+                return Promise.reject(error)
+            })
+
+}
+
+
+Promise.any(servers.map((server) => checkServer(server)))
+    .then((response) => {
+        console.log(response.url)
+    }) 
+
+    .catch((error) => {
+        console.log(error)
+    })
