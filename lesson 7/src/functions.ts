@@ -54,6 +54,6 @@ const arrowSumValues = (arr : number[] | string[] | unknown[]) : number | string
 }
 
 
-console.log(arrowSumValues(numArr));
-console.log(arrowSumValues(strArr));
-console.log(arrowSumValues(mixedArr));
+arrowSumValues(numArr);
+arrowSumValues(strArr);
+arrowSumValues(mixedArr);
